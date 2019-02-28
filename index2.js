@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Page Title</title>
-</head>
-<body>
-
-<h1>This is a Heading</h1>
-        <p>This is a paragraph.</p>
-        <h1>this is your mom </h1>
-
-</body>
-</html>
+function onClick() {
+        document.getElementById('test').innerHTML = "clicked!"
+}
