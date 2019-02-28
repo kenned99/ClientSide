@@ -1,5 +1,5 @@
 /*
-###RestEasy Beta Version 1###
+###RestEasy Beta Version 2###
 This code has been shared on the 26th of February 2019 for use at Mercantec
 
 */
@@ -9,6 +9,8 @@ var eventEmitter = new events.EventEmitter();
 var http = require("http")
 var url = require("url")
 var fs = require("fs")
+var mime = require("mime")
+var {parse} = require('querystring')
 
 var conn = 0
 
@@ -74,7 +76,12 @@ function handleQueryObject(query, res) {
 }
 
 function handleFileObject(query, res) {
-    fs.readFile(query.filepath, function(err, data) {
+    fs.readFile(query.filepath, function (err, data) {        
+        if(err) {
+            outputError(err,res)
+            return
+        }
+        res.writeHead(200, { 'Content-Type': mime.getType('.\\' + query.filepath) });
         res.end(data)
     })
 }
@@ -111,16 +118,33 @@ function outputError(err, res) {
 
 exports.start = function(port = 8080) {
     http.createServer(function(req, res) {
+        req.method=="POST"?handlePost(req,res):handleGet(req,res)
+    }).listen(port)
+}
+
+function handleGet(req,res) {
+    var q = url.parse(req.url, true)
+    var pathname = q.pathname
+    var query = q.query
+    res.foundPage = false;
+    eventEmitter.emit('RestEasy', pathname, query, res)
+    if(!res.foundPage) {
+        res.writeHead(404, "Page not Found")
+        res.end()
+    }
+}
+//TODO some repeated code here
+function handlePost(req,res) {
+    getPostData(req, function(query) {
         var q = url.parse(req.url, true)
         var pathname = q.pathname
-        var query = q.query
         res.foundPage = false;
         eventEmitter.emit('RestEasy', pathname, query, res)
         if(!res.foundPage) {
             res.writeHead(404, "Page not Found")
             res.end()
         }
-    }).listen(port)
+    })
 }
 
 exports.dbSetup = function(host = "localhost", user = "root", password="", database=null) {
@@ -156,4 +180,19 @@ exports.file = function(path) {
         isFILEQuery:true,
         filepath:path
     }
+}
+
+exports.offerFile = function(path) {
+    exports.page("/"+path, ()=>exports.file(path))
+}
+
+function getPostData(req, callback) {
+    console.log("req is " + req.method)
+    let body = '';
+    req.on('data', chunk => {
+        body += chunk.toString(); // convert Buffer to string
+    });
+    req.on('end', () => {
+        callback(parse(body))
+    });
 }
