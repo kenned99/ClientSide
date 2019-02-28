@@ -5,12 +5,23 @@ rest.dbSetup(       //Must be called if you want to use mysql calls
     "node",         //User
     "node.js",      //Password
     "node"          //Optionally database
+
     )
 
 rest.page("/", function(q) {
-    return parseInt(q.something) + parseInt(q.somethingelse)
+    return rest.file("index.html")
+
+
+})      
+    
+rest.offerFile('index2.js')
+
+rest.page("/", function() {
+    return rest.query("SELECT * FROM departments;")
 })
 
+
+/*
 rest.page("/view", function() {
     return "SELECT * FROM names"
 })
@@ -21,6 +32,6 @@ rest.page("/query", function() {
 
 rest.page("/file", function() {
     return rest.file("index.html")
-})
+})*/
 
-rest.start(8002)
+rest.start(8001)
