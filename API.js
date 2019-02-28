@@ -47,8 +47,10 @@ rest.page("/insert", function(q) {
 rest.page("/", function(q) {
     return rest.file("index.html")
 })
- 
 
+rest.page("/data.json", function(q) {
+    return rest.file("data.json")
+})
 rest.offerFile('index2.js')
 
 rest.start() //Initialize the server
