@@ -3,8 +3,8 @@ var rest = require("./RestEasy.js")
 rest.dbSetup(       //Must be called if you want to use mysql calls
     "localhost",    //Host
     "node",         //User
-    "node.js",      //Password
-    "node"          //Optionally database
+    "6969",      //Password
+    "employees"          //Optionally database
 
     )
 
@@ -16,7 +16,7 @@ rest.page("/", function(q) {
     
 rest.offerFile('index2.js')
 
-rest.page("/", function() {
+rest.page("/departments", function() {
     return rest.query("SELECT * FROM departments;")
 })
 
