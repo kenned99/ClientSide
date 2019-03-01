@@ -3,7 +3,7 @@
 $(document).ready(function () {
         
     
-$('h1').click(function(){
+$('#dep').click(function(){
         
         fetch('/departments')
         .then(
@@ -23,9 +23,6 @@ $('h1').click(function(){
                 
                 $('#test2').append(index+" "+ value+" <br>")
         });
-
-
-        $('test3').text(myJSON) 
         });
         })
 
