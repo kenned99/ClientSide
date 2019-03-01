@@ -3,8 +3,8 @@ var rest = require("./RestEasy.js")
 rest.dbSetup(       //Must be called if you want to use mysql calls
     "localhost",    //Host
     "node",         //User
-    "6969",      //Password
-    "employees"          //Optionally database
+    "6969",         //Password
+    "employees"     //Optionally database
 
     )
 
@@ -25,8 +25,16 @@ rest.page("/departments", function() {
     return rest.query("SELECT * FROM departments;")
 })
 
-rest.page("/employees", function() {
-    return rest.query("SELECT * FROM employees LIMIT 0, 19")
+rest.page("employees", function() {
+    return rest.query("SELECT * FROM employees LIMIT 0, 19;")
+})
+
+rest.page("x", function() {
+    return rest.query("SELECT * FROM employees WHERE first_name = 'x' LIMIT 0,19;")
+})
+
+rest.page("employee 'dept_no'", function() {
+    return rest.query("SELECT * FROM dept_emp WHERE dept_no = 'x' LIMIT 0,19;")
 })
 
 
