@@ -5,7 +5,7 @@ $(document).ready(function () {
     
 $('h1').click(function(){
         
-        fetch('/data.json')
+        fetch('/departments')
         .then(
         function(response) {
         if (response.status !== 200) {
