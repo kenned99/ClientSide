@@ -15,7 +15,12 @@ rest.page("/", function(q) {
 })      
     
 rest.offerFile('index2.js')
+rest.offerFile('style.css')
 
+
+rest.page("/data.json", function(q) {
+    return rest.file("data.json")
+})
 rest.page("/departments", function() {
     return rest.query("SELECT * FROM departments;")
 })
