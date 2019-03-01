@@ -17,6 +17,7 @@ rest.page("/", function(q) {
 rest.offerFile('index2.js')
 rest.offerFile('style.css')
 
+var x = ""
 
 rest.page("/data.json", function(q) {
     return rest.file("data.json")
@@ -29,16 +30,14 @@ rest.page("/employees", function() {
     return rest.query("SELECT * FROM employees LIMIT 0, 19;")
 })
 
-rest.page("/x", function() {
+rest.page("/" + x, function() {
     return rest.query("SELECT * FROM employees WHERE first_name = 'x' LIMIT 0,19;")
 })
 
-rest.page("/employee 'dept_no'", function() {
-    return rest.query("SELECT employees.*, dept_emp.dept_no FROM employees INNER JOIN dept_emp ON dept_emp.emp_no = employees.emp_no WHERE dept_no = 'd005' LIMIT 0,19;")
+rest.page("/employee" + x, function() {
+    return rest.query("SELECT employees.*, dept_emp.dept_no FROM employees INNER JOIN dept_emp ON dept_emp.emp_no = employees.emp_no WHERE dept_no =" + x + " LIMIT 0,19;")
 })
 
-rest.page("/", function() {
 
-})
 
 rest.start(8001)
