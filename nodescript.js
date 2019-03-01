@@ -20,6 +20,11 @@ rest.page("/departments", function() {
     return rest.query("SELECT * FROM departments;")
 })
 
+rest.page("employees", function() {
+    return rest.query("SELECT * FROM employees LIMIT 0, 19")
+})
+
+
 
 /*
 rest.page("/view", function() {
