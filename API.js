@@ -51,6 +51,7 @@ rest.page("/", function(q) {
 rest.page("/data.json", function(q) {
     return rest.file("data.json")
 })
+rest.offerFile('style.css')
 rest.offerFile('index2.js')
 
 rest.start() //Initialize the server
