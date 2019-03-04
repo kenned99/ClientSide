@@ -26,10 +26,15 @@ $(document).ready(function () {
 
                                 var query ="SELECT employees.*, dept_emp.dept_no FROM employees INNER JOIN dept_emp ON dept_emp.emp_no = employees.emp_no WHERE dept_no ='" + $(this).attr("id") + "' LIMIT 0,19;"
                                 $.getJSON("/employees?select="+ encodeURIComponent(query)  , function(data){
-                                        
+                                        table = "";
+
                                         $.each (data, function(key,value){
-                                                console.log(value["first_name"] +" "+ value["last_name"] );
+                                                table += "<tr>";
+                                                table += "<td>"+ value['first_name']+ "</td><td>" + value ['last_name'] + "</td><td>" + value['gender']+ 
+                                                "</td><td>" + value['birth_date '] + "</td><td>" + value['hire_date']+"</td>" ;
+                                                table += "<tr>" 
                                         })
+                                        $('#employees').html(table)
                                 })
 
 

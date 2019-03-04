@@ -155,6 +155,7 @@ exports.dbSetup = function(host = "localhost", user = "root", password="", datab
         host: host,
         user: user,
         password: password,
+        
     }
 
     if(database) {
