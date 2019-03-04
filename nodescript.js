@@ -28,9 +28,12 @@ rest.page("/data.json", function(q) {
 rest.page("/departments", function(q) {
     return q.select;
 })
-rest.page("/employees", function() {
-    return rest.query("SELECT * FROM employees LIMIT 0, 19;")
+rest.page("/employees", function(q) {
+    return q.select;
 })
+// rest.page("/employees", function() {
+//     return rest.query("SELECT * FROM employees LIMIT 0, 19;")
+// })
 
 rest.page("/" + x, function() {
     return rest.query("SELECT * FROM employees WHERE first_name = 'x' LIMIT 0,19;")
