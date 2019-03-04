@@ -1,8 +1,14 @@
-
+#depBox {
+    background-color: lightgrey;
+    width: 300px;
+  /*  border: 25px solid green;*/
+    padding: 25px;
+    margin: 25px;
+  }
 
 /*
 .VTG {
-    width: 100%;
+    width: 100%;½
     height: auto;
 }
 */
