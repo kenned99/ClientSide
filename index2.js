@@ -3,28 +3,23 @@
 $(document).ready(function () {
         
     
-$('#dep').click(function(){
-        
-        fetch('/departments')
-        .then(
-        function(response) {
-        if (response.status !== 200) {
-        console.log('Looks like there was a problem. Status Code: ' +
-                response.status);
-        return;
-        }
+        $('#dep').click(function(){
+        var query = "SELECT * FROM departments order by dept_no"
+                $.getJSON("/departments?select="+ encodeURIComponent(query)  , function(data){
+                        
+                        $.each(data, function(key, value){
+                                //alert(key + "----" + value)
+                                //$.each(value, function(dep_num)
+                                value["dept_no"]
+                                value["dept_name"]
+                                
+                        })
 
-        // Examine the text in the response
-        response.json().then(function(data) {
-        console.log(data)
+                        console.log(data)
 
-        });
+
+
+                });
+
         })
-
-        .catch(function(err) {
-        console.log('Fetch Error :-S', err);
-        });   
-
-
-})
 });
