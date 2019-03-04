@@ -67,19 +67,18 @@ $(document).ready(function () {
                         }
                     });
                 });
-
-
+        });     
         $('#searchemployee').click(function() {
-                event.preventDefault();var query = "SELECT * FROM employees WHERE first_name REGEXP " + $("searchinput").val() + "  || last_name REGEXP " + $("searchinput").val() + " LIMIT 0,99;"
+                event.preventDefault();var query = "SELECT * FROM employees WHERE first_name REGEXP " + $("#searchinput").val() + "  || last_name REGEXP " + $("#searchinput").val() + " LIMIT 0,99;"
                 $.getJSON("/search?select="+ encodeURIComponent(query), function(data){
                 table = ""
                 $.each(data, function(key, value) {
                         table += "<tr><td>"+ value['first_name']+ "</td><td>" + value ['last_name'] 
                         + "</td><td>" + value['gender']+ "</td><td>" + value['birth_date'] + "</td><td>" + value['hire_date']+"</td></tr>"
                 })
-                table += "</table><button id = 'showMore'>show more</button>"
-        })
-        });       
+                $('#employees').html(table)
+                console.log(table)
+        })  
         
         
                 
