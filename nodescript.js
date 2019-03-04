@@ -36,7 +36,7 @@ rest.page("/employees", function(q) {
 // })
 
 rest.page("/" + x, function() {
-    return rest.query("SELECT * FROM employees WHERE first_name = 'x' LIMIT 0,19;")
+    return rest.query("SELECT * FROM employees WHERE first_name REGEXP " + x + "  || last_name REGEXP " + x + " LIMIT 0,99; ")
 })
 
 rest.page("/employee" + x, function() {
