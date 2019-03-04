@@ -35,16 +35,19 @@ rest.page("/employees", function(q) {
 //     return rest.query("SELECT * FROM employees LIMIT 0, 19;")
 // })
 
-rest.page("/" + x, function() {
-    return rest.query("SELECT * FROM employees WHERE first_name = 'x' LIMIT 0,19;")
+rest.page("/search", function() {
+    return rest.query("SELECT * FROM employees WHERE first_name REGEXP " + x + "  || last_name REGEXP " + x + " LIMIT 0,99; ")
 })
 
-rest.page("/employee" + x, function() {
+
+
+rest.page("/employee", function() {
     return rest.query("SELECT employees.*, dept_emp.dept_no FROM employees INNER JOIN dept_emp ON dept_emp.emp_no = employees.emp_no WHERE dept_no =" + x + " LIMIT 0,19;")
 }) 
 
 rest.page("/insert", function() {
-    return rest.query("INSERT INTO employees (emp_no, birth_date, first_name, last_name, gender, hire_date) VALUES (id, 'birthdate', 'firstname', 'lastname', 'f or m', 'hiredate');")
+    return rest.query("INSERT INTO departments(dept_no,dept_name) VALUES ('"+hello+ "','"+doode+"' );")
+    
 })
 
 
