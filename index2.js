@@ -58,7 +58,8 @@ $(document).ready(function () {
 
                                                         button = $('<button>accept</button>').attr('id', 'someId'); 
                                                         
-                                                        $('#employees').html(table + button)
+                                                        $('#employees').html(table)
+                                                        
                                                 })
                                         })
                                 })
