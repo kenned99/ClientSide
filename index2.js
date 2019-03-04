@@ -17,12 +17,7 @@ $('#dep').click(function(){
         // Examine the text in the response
         response.json().then(function(data) {
         console.log(data)
-        var myJSON = JSON.stringify(data)
-        $('test2').text("");
-        $.each(data, function (index, value) {
-                
-                $('#test2').append(index+" "+ value+" <br>")
-        });
+
         });
         })
 
