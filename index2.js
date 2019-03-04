@@ -38,32 +38,58 @@ $(document).ready(function () {
                                         })
                                         table += "</table><button id = 'showMore'>show more</button>"
                                         
-                                        $('#employees').html(table )
+                                        $('#employees').html(table)
                                         
-                                        $('#showMore').click ( function( ){
-                                                i = i + 20
-                                                console.log(i)
-                                                var query ="SELECT employees.*, dept_emp.dept_no FROM employees INNER JOIN dept_emp ON dept_emp.emp_no = employees.emp_no WHERE dept_no ='" + tablename + "' LIMIT 0,"+i+";"
-                                                $.getJSON("/employees?select="+ encodeURIComponent(query)  , function(data){
-                                                        table = "<table>";
-                                                        
-                                                        $.each (data, function(key,value){
-                                                                
-                                                                table += "<tr><td>"+ value['first_name']+ "</td><td>" + value ['last_name'] +
-                                                                 "</td><td>" + value['gender']+ "</td><td>" + value['birth_date'] + "</td><td>" + value['hire_date']+"</td></tr>" ;
-                                                                
-                                                                
-                                                        })
-                                                        table += "</table>";
-
-                                                        button = $('<button>accept</button>').attr('id', 'someId'); 
-                                                        
-                                                        $('#employees').html(table)
-                                                        
-                                                })
-                                        })
+                                        $('#showMore').click(showmorebtn)
                                 })
                         })
                 });
         })
+
+        $('#insertbtn').click( function(event){
+                event.preventDefault();
+                console.log("hello")
+                console.log($("#dept_input").val())
+                $.ajax({
+                        global: false,
+                        type: 'POST',
+                        url: '/insert',
+                        dataType: 'html',
+                        data: {
+                            deptname: $("#dept_input").val()
+                            
+                        },
+                        success: function (result) {
+                            console.log(result);
+                        },
+                        error: function (request, status, error) {
+                            serviceError();
+                        }
+                    });
+                });
+                
 });
+
+var showmorebtn = function( ){
+        i = i + 20
+        console.log(i)
+        var query ="SELECT employees.*, dept_emp.dept_no FROM employees INNER JOIN dept_emp ON dept_emp.emp_no = employees.emp_no WHERE dept_no ='" + tablename + "' LIMIT 0,"+i+";"
+        $.getJSON("/employees?select="+ encodeURIComponent(query)  , function(data){
+                table = "<table>";
+                
+                $.each (data, function(key,value){
+                        
+                        table += "<tr><td>"+ value['first_name']+ "</td><td>" + value ['last_name'] +
+                         "</td><td>" + value['gender']+ "</td><td>" + value['birth_date'] + "</td><td>" + value['hire_date']+"</td></tr>" ;
+                        
+                        
+                })
+                table += "</table>";
+
+                table += "</table><button id = 'showMore'>show more</button>"
+                
+                $('#employees').html(table)
+                $('#showMore').click(showmorebtn)
+                
+        })
+}

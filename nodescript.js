@@ -44,7 +44,8 @@ rest.page("/employee" + x, function() {
 }) 
 
 rest.page("/insert", function() {
-    return rest.query("INSERT INTO employees (emp_no, birth_date, first_name, last_name, gender, hire_date) VALUES (id, 'birthdate', 'firstname', 'lastname', 'f or m', 'hiredate');")
+    return rest.query("INSERT INTO departments(dept_no,dept_name) VALUES ('"+hello+ "','"+doode+"' );")
+    
 })
 
 
