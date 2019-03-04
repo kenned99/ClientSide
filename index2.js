@@ -70,6 +70,11 @@ $(document).ready(function () {
                 
 });
 
+var target = $('#navcop');
+if(target.is(":visible")){
+$('#navcop').click();
+}
+
 var showmorebtn = function( ){
         i = i + 20
         console.log(i)
