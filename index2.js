@@ -11,7 +11,7 @@ $(document).ready(function () {
                                 //alert(key + "----" + value)
                                 //$.each(value, function(dep_num)
                                 table += "<tr>"
-                                table += "<td>" + value["dept_no"]+ "</td>" + "<td>" + value["dept_name"]+ "</td>"
+                                table += "<td><button id = '"+value["dept_no"] +"'>" + value["dept_name"]+ "</button></td>"
                                 
                                 table += "<tr>"
                         })
@@ -19,7 +19,7 @@ $(document).ready(function () {
                         $('#deptList').html(table)
                         
                         console.log(table)
-
+                        //value["dept_no"]
 
 
                 });
