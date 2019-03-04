@@ -3,44 +3,66 @@
 $(document).ready(function () {
         
         
+        
         $('#dep').click(function(){
                 var query = "SELECT * FROM departments order by dept_no"
                 $.getJSON("/departments?select="+ encodeURIComponent(query)  , function(data){
-                        table = "";
+                        table = ""
                         $.each(data, function(key, value){
-                                //alert(key + "----" + value)
-                                //$.each(value, function(dep_num)
+
                                 table += "<tr>"
                                 table += "<td><button class = 'dept_button' id ='"+value["dept_no"] +"'>" + value["dept_name"]+ "</button></td>"
                                 
                                 table += "<tr>"
                         })
-                        //$('#deptList').html("<td>" + value["dept_no"]+ "</td>")   
+                        
                         $('#deptList').html(table)
                         
                         console.log(table)
-                        //value["dept_no"]
 
                         $('.dept_button').click ( function( ){
-                                alert($(this).attr("id"))
-
-                                var query ="SELECT employees.*, dept_emp.dept_no FROM employees INNER JOIN dept_emp ON dept_emp.emp_no = employees.emp_no WHERE dept_no ='" + $(this).attr("id") + "' LIMIT 0,19;"
+                                
+                                i = 20;
+                                
+                                tablename = $(this).attr("id");
+                                var query ="SELECT employees.*, dept_emp.dept_no FROM employees INNER JOIN dept_emp ON dept_emp.emp_no = employees.emp_no WHERE dept_no ='" + tablename+ "' LIMIT 0,"+i+";"
                                 $.getJSON("/employees?select="+ encodeURIComponent(query)  , function(data){
-                                        table = "";
-
+                                        table = "<table>";
+                                        
                                         $.each (data, function(key,value){
-                                                table += "<tr>";
-                                                table += "<td>"+ value['first_name']+ "</td><td>" + value ['last_name'] + "</td><td>" + value['gender']+ "</td><td>" + value['birth_date'] + "</td><td>" + value['hire_date']+"</td>" ;
-                                                table += "</tr>" 
+                                                
+                                                table += "<tr><td>"+ value['first_name']+ "</td><td>" + value ['last_name'] 
+                                                + "</td><td>" + value['gender']+ "</td><td>" + value['birth_date'] + "</td><td>" + value['hire_date']+"</td></tr>" ;
+                                                
+                                                
                                         })
-                                        $('#employees').html(table)
+                                        table += "</table><button id = 'showMore'>show more</button>"
+                                        
+                                        $('#employees').html(table )
+                                        
+                                        $('#showMore').click ( function( ){
+                                                i = i + 20
+                                                console.log(i)
+                                                var query ="SELECT employees.*, dept_emp.dept_no FROM employees INNER JOIN dept_emp ON dept_emp.emp_no = employees.emp_no WHERE dept_no ='" + tablename + "' LIMIT 0,"+i+";"
+                                                $.getJSON("/employees?select="+ encodeURIComponent(query)  , function(data){
+                                                        table = "<table>";
+                                                        
+                                                        $.each (data, function(key,value){
+                                                                
+                                                                table += "<tr><td>"+ value['first_name']+ "</td><td>" + value ['last_name'] +
+                                                                 "</td><td>" + value['gender']+ "</td><td>" + value['birth_date'] + "</td><td>" + value['hire_date']+"</td></tr>" ;
+                                                                
+                                                                
+                                                        })
+                                                        table += "</table>";
+
+                                                        button = $('<button>accept</button>').attr('id', 'someId'); 
+                                                        
+                                                        $('#employees').html(table + button)
+                                                })
+                                        })
                                 })
-
-
                         })
-
                 });
-
         })
- 
 });
