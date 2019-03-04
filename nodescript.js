@@ -36,7 +36,7 @@ rest.page("/employees", function(q) {
 // })
 
 rest.page("/search", function(q) {
-    return rest.select;
+    return q.select;
 })
 
 
