@@ -30,9 +30,8 @@ $(document).ready(function () {
 
                                         $.each (data, function(key,value){
                                                 table += "<tr>";
-                                                table += "<td>"+ value['first_name']+ "</td><td>" + value ['last_name'] + "</td><td>" + value['gender']+ 
-                                                "</td><td>" + value['birth_date '] + "</td><td>" + value['hire_date']+"</td>" ;
-                                                table += "<tr>" 
+                                                table += "<td>"+ value['first_name']+ "</td><td>" + value ['last_name'] + "</td><td>" + value['gender']+ "</td><td>" + value['birth_date'] + "</td><td>" + value['hire_date']+"</td>" ;
+                                                table += "</tr>" 
                                         })
                                         $('#employees').html(table)
                                 })
