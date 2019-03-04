@@ -1,6 +1,6 @@
 .grid-container {
     display: grid;
-    grid-template-columns: 20% 60% auto;
+    grid-template-columns: 30% auto;
     background-color: #2196F3;
     padding: 10px;
     grid-gap: 1% 1%;
@@ -15,6 +15,19 @@
   text-align: center;
 }
 
+.deptList{
+    text-align: left;
+}
+
+
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+  }
 
 #depBox {
     background-color: lightgrey;
