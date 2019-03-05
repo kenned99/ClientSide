@@ -88,7 +88,6 @@ $(document).ready(function () {
                         console.log(table)
                 });
         });     
-<<<<<<< HEAD
         
         
 
@@ -96,8 +95,6 @@ $(document).ready(function () {
                 $('.navbar-toggle:visible').click();
         });*/
 
-=======
->>>>>>> 19b7ae5c6e532c3bb4349a3d09335d898b7ebd37
                 
 });
 var showmoresearch = function() {
