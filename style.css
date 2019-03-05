@@ -58,6 +58,26 @@ table {
   padding-right: 25px;
 }
 
+
+.insertbtn{
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #7b1ef4;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  padding: 5px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.insertbtn:hover {
+  padding-right: 10px;
+}
+
+
 /*
 #depBox {
     background-color: lightgrey;
