@@ -68,15 +68,17 @@ $(document).ready(function () {
                     });
                 });
                 $('#searchthis').click(function(){
+                        i = 20
                         event.preventDefault();
-                        var query = "SELECT * FROM employees WHERE first_name REGEXP '" + $("#searchInput").val() + "'  || last_name REGEXP '" + $("#searchInput").val() + "' LIMIT 0,99;"
+                        var query = "SELECT * FROM employees WHERE first_name REGEXP '" + $("#searchInput").val() + "'  || last_name REGEXP '" + $("#searchInput").val() + "' LIMIT 0,"+20+";"
                         $.getJSON("/search?select="+ encodeURIComponent(query), function(data){
                                 console.log(data)
-                        table = ""
+                        table = "<table>"
                         $.each(data, function(key, value) {
                                 table += "<tr><td>"+ value['first_name']+ "</td><td>" + value ['last_name'] 
                                 + "</td><td>" + value['gender']+ "</td><td>" + value['birth_date'] + "</td><td>" + value['hire_date']+"</td></tr>"
                         })
+                        table += "</table><button id='showmoresearchbtn'>show more</button>"
                         $('#employees').html(table)
                         $('#showmorebtn').click(showmoresearch)
                         console.log(table)
@@ -89,7 +91,7 @@ $(document).ready(function () {
 var showmoresearch = function() {
         i = i + 20
         var query ="SELECT * FROM employees WHERE first_name REGEXP '" + $("#searchInput").val() + "'  || last_name REGEXP '" + $("#searchInput").val() + "' LIMIT 0,"+i+";"
-        $getJSON("/search?select="+ encodeURIComponent(query), function(data) {
+        $.getJSON("/search?select="+ encodeURIComponent(query), function(data) {
                 table = "<table>"
 
                 $.each (data, function(key,value) {
