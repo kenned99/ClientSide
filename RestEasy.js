@@ -11,19 +11,19 @@ var http = require("http")
 var url = require("url")
 var fs = require("fs")
 var mime = require("mime")
-var {parse} = require('querystring')
+var { parse } = require('querystring')
 
 var conn = 0
 
-exports.page = function(path = "/", callback) {
-    eventEmitter.on('RestEasy', function(qPath, query, res) {
-        if(path == qPath && !res.foundPage) {
+exports.page = function (path = "/", callback) {
+    eventEmitter.on('RestEasy', function (qPath, query, res) {
+        if (path == qPath && !res.foundPage) {
             res.foundPage = true
             var output = callback(query)
-            console.log("On "+qPath+", received Type: " + typeof(output))
-            switch (typeof(output)) {
+            console.log("On " + qPath + ", received Type: " + typeof (output))
+            switch (typeof (output)) {
                 case "number":
-                    handleNumber(output,res)
+                    handleNumber(output, res)
                     break;
                 case "string":
                     handleString(output, res)
@@ -40,9 +40,9 @@ exports.page = function(path = "/", callback) {
 }
 
 function handleString(query, res) {
-    if(isSelectQuery(query) && conn != 0) {
-        conn.query(query, function(err, result) {
-            if(err) outputError(err, res)
+    if (isSelectQuery(query) && conn != 0) {
+        conn.query(query, function (err, result) {
+            if (err) outputError(err, res)
             res.end(JSON.stringify(result))
         })
     } else {
@@ -51,24 +51,24 @@ function handleString(query, res) {
 }
 
 function handleNumber(query, res) {
-    res.end(""+query)
+    res.end("" + query)
 }
 
 function handleObject(query, res) {
-    if(query.isRESTQuery) {
-        handleQueryObject(query,res)
+    if (query.isRESTQuery) {
+        handleQueryObject(query, res)
     } else if (query.isFILEQuery) {
-        handleFileObject(query,res)
+        handleFileObject(query, res)
     } else {
         res.end(JSON.stringify(query))
     }
 }
 
 function handleQueryObject(query, res) {
-    if(conn) {
+    if (conn) {
         console.log("Query Object: " + JSON.stringify(query))
-        conn.query(query.sql, function(err, result) {
-            if(err) outputError(err, res)
+        conn.query(query.sql, function (err, result) {
+            if (err) outputError(err, res)
             else res.end("Success")
         })
     } else {
@@ -77,9 +77,9 @@ function handleQueryObject(query, res) {
 }
 
 function handleFileObject(query, res) {
-    fs.readFile(query.filepath, function (err, data) {        
-        if(err) {
-            outputError(err,res)
+    fs.readFile(query.filepath, function (err, data) {
+        if (err) {
+            outputError(err, res)
             return
         }
         res.writeHead(200, { 'Content-Type': mime.getType('.\\' + query.filepath) });
@@ -89,7 +89,7 @@ function handleFileObject(query, res) {
 
 function isSelectQuery(query) {
     return query.trim().toLowerCase().startsWith("select")
-} 
+}
 
 function outputError(err, res) {
     var oup = {
@@ -112,43 +112,43 @@ function outputError(err, res) {
             oup.suggestion = "Please report this error code to <EMAIL> for future handling of this error"
             break;
     }
-    if(res) {
-        res.end(JSON.stringify(oup," ", 2))
+    if (res) {
+        res.end(JSON.stringify(oup, " ", 2))
     }
 }
 
-exports.start = function(port = 8080) {
-    http.createServer(function(req, res) {
-        req.method=="POST"?handlePost(req,res):handleGet(req,res)
+exports.start = function (port = 8080) {
+    http.createServer(function (req, res) {
+        req.method == "POST" ? handlePost(req, res) : handleGet(req, res)
     }).listen(port)
 }
 
-function handleGet(req,res) {
+function handleGet(req, res) {
     var q = url.parse(req.url, true)
     var pathname = q.pathname
     var query = q.query
     res.foundPage = false;
     eventEmitter.emit('RestEasy', pathname, query, res)
-    if(!res.foundPage) {
+    if (!res.foundPage) {
         res.writeHead(404, "Page not Found")
         res.end()
     }
 }
 //TODO some repeated code here
-function handlePost(req,res) {
-    getPostData(req, function(query) {
+function handlePost(req, res) {
+    getPostData(req, function (query) {
         var q = url.parse(req.url, true)
         var pathname = q.pathname
         res.foundPage = false;
         eventEmitter.emit('RestEasy', pathname, query, res)
-        if(!res.foundPage) {
+        if (!res.foundPage) {
             res.writeHead(404, "Page not Found")
             res.end()
         }
     })
 }
 
-exports.dbSetup = function(host = "localhost", user = "root", password="", database=null) {
+exports.dbSetup = function (host = "localhost", user = "root", password = "", database = null) {
     var mysql = require('mysql')
 
     var connParams = {
@@ -158,34 +158,34 @@ exports.dbSetup = function(host = "localhost", user = "root", password="", datab
         dateStrings: true
     }
 
-    if(database) {
+    if (database) {
         connParams.database = database
     }
 
     var con = mysql.createConnection(connParams)
-    
-    con.connect(function(err) {
-        if(err) outputError(err)
+
+    con.connect(function (err) {
+        if (err) outputError(err)
         conn = con
     })
 }
 
-exports.query = function(query) {
+exports.query = function (query) {
     return {
-        isRESTQuery:true,
-        sql:query
+        isRESTQuery: true,
+        sql: query
     }
 }
 
-exports.file = function(path) {
+exports.file = function (path) {
     return {
-        isFILEQuery:true,
-        filepath:path
+        isFILEQuery: true,
+        filepath: path
     }
 }
 
-exports.offerFile = function(path) {
-    exports.page("/"+path, ()=>exports.file(path))
+exports.offerFile = function (path) {
+    exports.page("/" + path, () => exports.file(path))
 }
 
 function getPostData(req, callback) {
