@@ -67,10 +67,17 @@ $(document).ready(function () {
                         }
                     });
                 });
+
+
+
                 $('#searchthis').click(function(){
                         i = 20
                         event.preventDefault();
+<<<<<<< Updated upstream
                         var query = "SELECT * FROM employees WHERE first_name REGEXP '" + $("#searchInput").val() + "'  || last_name REGEXP '" + $("#searchInput").val() + "' LIMIT 0,"+20+";"
+=======
+                        var query = "SELECT * FROM employees WHERE first_name REGEXP '" + $("#searchInput").val() + "'  || last_name REGEXP '" + $("#searchInput").val() + "' LIMIT 0,19;"
+>>>>>>> Stashed changes
                         $.getJSON("/search?select="+ encodeURIComponent(query), function(data){
                                 console.log(data)
                         table = "<table>"
@@ -84,27 +91,39 @@ $(document).ready(function () {
                         console.log(table)
                 });
         });     
-        
-        
                 
 });
 var showmoresearch = function() {
         i = i + 20
         var query ="SELECT * FROM employees WHERE first_name REGEXP '" + $("#searchInput").val() + "'  || last_name REGEXP '" + $("#searchInput").val() + "' LIMIT 0,"+i+";"
+<<<<<<< Updated upstream
         $.getJSON("/search?select="+ encodeURIComponent(query), function(data) {
                 table = "<table>"
 
                 $.each (data, function(key,value) {
                         table += "<tr><td>"+ value['first_name']+ "</td><td>" + value ['last_name'] 
                         + "</td><td>" + value['gender']+ "</td><td>" + value['birth_date'] + "</td><td>" + value['hire_date']+"</td></tr>"
+=======
+        $.getJSON("/search?select="+ encodeURIComponent(query)  , function(data){
+                table = "<table>";
+                
+                $.each (data, function(key,value){
+                        
+                        table += "<tr><td>"+ value['first_name']+ "</td><td>" + value ['last_name'] +
+                         "</td><td>" + value['gender']+ "</td><td>" + value['birth_date'] + "</td><td>" + value['hire_date']+"</td></tr>" ;
+                        
+                        
+>>>>>>> Stashed changes
                 })
                 table += "</table>";
 
-                table += "</table><button id='showmoreseachbtn'>show more</button>"
-
+                table += "</table><button id = 'showMorebtn'>show more</button>"
+                
                 $('#employees').html(table)
-                $('#showmorebtn').click(showmoresearch)
-        })
+                $('#showMorebtn').click(showmoresearch)
+                
+        });
+
 }
 
 

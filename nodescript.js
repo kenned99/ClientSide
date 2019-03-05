@@ -45,8 +45,9 @@ rest.page("/employee", function() {
     return rest.query("SELECT employees.*, dept_emp.dept_no FROM employees INNER JOIN dept_emp ON dept_emp.emp_no = employees.emp_no WHERE dept_no =" + x + " LIMIT 0,19;")
 }) 
 
-rest.page("/insert", function() {
-    return rest.query("INSERT INTO departments(dept_no,dept_name) VALUES ('"+hello+ "','"+doode+"' );")
+rest.page("/insert", function(q) {
+    
+    return  rest.query("INSERT INTO departments(dept_no,dept_name) VALUES ('d010','"+q.deptname+"' );")
     
 })
 
