@@ -25,6 +25,38 @@ table {
   width: 100%;
 }
 
+/*.dept_button {
+  background-color: #f4511e;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}*/
+.dept_button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #7b1ef4;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  padding: 10px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.dept_button:hover {
+  padding-right: 25px;
+}
 
 /*
 #depBox {
