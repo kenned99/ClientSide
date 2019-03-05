@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
 
-        debug = false
+        debug = true
 
         $('#dep').click(function () {
                 var query = "SELECT * FROM departments order by dept_no"
@@ -38,7 +38,7 @@ $(document).ready(function () {
 
 
                                         })
-                                        table += "</table><button id = 'showMore'>show more</button>"
+                                        table += "</table><button class = 'dept_button' id = 'showMore'>show more</button>"
 
                                         $('#employees').html(table)
 
@@ -92,7 +92,7 @@ $(document).ready(function () {
                                 table += "<tr><td>" + value['first_name'] + "</td><td>" + value['last_name']
                                         + "</td><td>" + value['gender'] + "</td><td>" + value['birth_date'] + "</td><td>" + value['hire_date'] + "</td></tr>"
                         })
-                        table += "</table><button id='showmoresearchbtn'>show more</button>"
+                        table += "</table><button class = 'dept_button' id='showmoresearchbtn'>show more</button>"
                         $('#employees').html(table)
                         $('#showmoresearchbtn').click(showmoresearch)
                         if (debug == true) {
@@ -129,7 +129,7 @@ var showmoresearch = function () {
                 })
                 table += "</table>";
 
-                table += "</table><button id = 'showmoresearchbtn'>show more</button>"
+                table += "</table><button class = 'dept_button' id = 'showmoresearchbtn'>show more</button>"
 
                 $('#employees').html(table)
                 $('#showmoresearchbtn').click(showmoresearch)
@@ -159,7 +159,7 @@ var showmorebtn = function () {
                 })
                 table += "</table>";
 
-                table += "</table><button id = 'showMore'>show more</button>"
+                table += "</table><button class = 'dept_button' id = 'showMore'>show more</button>"
 
                 $('#employees').html(table)
                 $('#showMore').click(showmorebtn)
