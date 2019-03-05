@@ -67,10 +67,14 @@ $(document).ready(function () {
                         }
                     });
                 });
+
+
+
                 $('#searchthis').click(function(){
                         i = 20
+                        
                         event.preventDefault();
-                        var query = "SELECT * FROM employees WHERE first_name REGEXP '" + $("#searchInput").val() + "'  || last_name REGEXP '" + $("#searchInput").val() + "' LIMIT 0,"+20+";"
+                        var query = "SELECT * FROM employees WHERE first_name REGEXP '" + $("#searchInput").val() + "'  || last_name REGEXP '" + $("#searchInput").val() + "' LIMIT 0,"+i+";"
                         $.getJSON("/search?select="+ encodeURIComponent(query), function(data){
                                 console.log(data)
                         table = "<table>"
@@ -80,10 +84,11 @@ $(document).ready(function () {
                         })
                         table += "</table><button id='showmoresearchbtn'>show more</button>"
                         $('#employees').html(table)
-                        $('#showmorebtn').click(showmoresearch)
+                        $('#showmoresearchbtn').click(showmoresearch)
                         console.log(table)
                 });
         });     
+<<<<<<< HEAD
         
         
 
@@ -91,25 +96,33 @@ $(document).ready(function () {
                 $('.navbar-toggle:visible').click();
         });*/
 
+=======
+>>>>>>> 19b7ae5c6e532c3bb4349a3d09335d898b7ebd37
                 
 });
 var showmoresearch = function() {
         i = i + 20
+        console.log(i)
         var query ="SELECT * FROM employees WHERE first_name REGEXP '" + $("#searchInput").val() + "'  || last_name REGEXP '" + $("#searchInput").val() + "' LIMIT 0,"+i+";"
-        $.getJSON("/search?select="+ encodeURIComponent(query), function(data) {
-                table = "<table>"
-
-                $.each (data, function(key,value) {
-                        table += "<tr><td>"+ value['first_name']+ "</td><td>" + value ['last_name'] 
-                        + "</td><td>" + value['gender']+ "</td><td>" + value['birth_date'] + "</td><td>" + value['hire_date']+"</td></tr>"
+        $.getJSON("/search?select="+ encodeURIComponent(query)  , function(data){
+                table = "<table>";
+                
+                $.each (data, function(key,value){
+                        
+                        table += "<tr><td>"+ value['first_name']+ "</td><td>" + value ['last_name'] +
+                         "</td><td>" + value['gender']+ "</td><td>" + value['birth_date'] + "</td><td>" + value['hire_date']+"</td></tr>" ;
+                        
+                        
                 })
                 table += "</table>";
 
-                table += "</table><button id='showmoreseachbtn'>show more</button>"
-
+                table += "</table><button id = 'showmoresearchbtn'>show more</button>"
+                
                 $('#employees').html(table)
-                $('#showmorebtn').click(showmoresearch)
-        })
+                $('#showmoresearchbtn').click(showmoresearch)
+                
+        });
+
 }
 
 
